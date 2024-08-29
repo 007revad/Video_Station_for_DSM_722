@@ -1,2 +1,5 @@
+v1.0.1
+  - Bug fix for not installing AME. Issue #3
+
 v1.0.0
   - First release.
