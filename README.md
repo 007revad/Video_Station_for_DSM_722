@@ -1,4 +1,4 @@
-# <img src="images/videostation.jpg" width="40"> Video Station for DSM 722
+# <img src="images/VideoStation_64.png" width="40"> Video Station for DSM 7.2.2
 
 <a href="https://github.com/007revad/Video_Station_for_DSM_722/releases"><img src="https://img.shields.io/github/release/007revad/Video_Station_for_DSM_722.svg"></a>
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F007revad%2FVideo_Station_for_DSM_722&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false"/></a>
