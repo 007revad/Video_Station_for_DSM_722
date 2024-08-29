@@ -10,8 +10,6 @@
 
 Script to install Video Station in DSM 7.2.2
 
-Coming **very, very** soon :o) 
-
 Synology's Video Station package has been installed more than 66 million times so there are a lot people very annoyed that Synology decided to abandon Video Station when DSM 7.2.2 was released. Many of those people are saying they will never buy another Synology NAS. So I decided to make it possible to install Video Station in DSM 7.2.2 for people who really want Video Station.
 
 This script installs Video Station 3.1.0-3153 and Codec Pack 3.1.0-3005
