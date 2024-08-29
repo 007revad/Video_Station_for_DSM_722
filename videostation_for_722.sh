@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.0.0"
+scriptver="v1.0.1"
 script=VideoStation_for_DSM722
 repo="007revad/VideoStation_for_DSM722"
 scriptname=videostation_for_722
@@ -478,7 +478,7 @@ if [[ ${ame_version:0:1} -gt "3" ]]; then
 fi
 
 # CodecPack (Advanced Media Extensions)
-if ! check_pkg_installed CodecPack && [[ $ame_version == "30.1.0-3005" ]]; then
+if ! check_pkg_installed CodecPack && [[ $ame_version != "30.1.0-3005" ]]; then
     download_pkg CodecPack "3.1.0-3005" "CodecPack-${arch}-3.1.0-3005.spk"
     package_install "CodecPack-${arch}-3.1.0-3005.spk" "Advanced Media Extensions"
     package_stop CodecPack "Advanced Media Extensions"
