@@ -27,9 +27,9 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.0.1"
-script=VideoStation_for_DSM722
-repo="007revad/VideoStation_for_DSM722"
+scriptver="v1.0.2"
+script=Video_Station_for_DSM_722
+repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
 
 # Shell Colors
