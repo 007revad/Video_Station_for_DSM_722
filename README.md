@@ -14,6 +14,10 @@ Coming very soon :o)
 
 Synology's Video Station package has been installed more than 66 million times so there are a lot people very annoyed that Synology decided to abandon Video Station when DSM 7.2.2 was released. Many of those people are saying they will never buy another Synology NAS. So I decided to make it possible to install Video Station in DSM 7.2.2 for people who really want Video Station.
 
+#### NOTE
+
+To get Video Station to work the script needs to install an older version of AME... which means Drive, Photos may not work unless you install older versions of them.
+
 <p align="center">Video Station installed in DSM 7.2.2</p>
 <p align="center"><img src="/images/installed-1.png"></p>
 
