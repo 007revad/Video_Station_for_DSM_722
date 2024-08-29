@@ -16,7 +16,7 @@ Synology's Video Station package has been installed more than 66 million times s
 
 #### NOTE
 
-To get Video Station to work the script needs to install an older version of AME... which means Drive, Photos may not work unless you install older versions of them.
+To get Video Station to work the script needs to install an older version of AME... which means Drive and Photos may not work unless you install older versions of them.
 
 <p align="center">Video Station installed in DSM 7.2.2</p>
 <p align="center"><img src="/images/installed-1.png"></p>
