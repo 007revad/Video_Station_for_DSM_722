@@ -1,5 +1,6 @@
 v2.0.0
   - Added fix for OpenSubtitles.
+    - You need manually download v2.0.0 because v1.0.0 does not know about the extra files.
 
 v1.0.0
   - First release.
