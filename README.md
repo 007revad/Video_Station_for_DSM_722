@@ -12,7 +12,40 @@ Script to install Video Station in DSM 7.2.2
 
 Coming **very, very** soon :o) 
 
-<p align="center">Video Station installed in DSM 7.2.2</p>
-<p align="center"><img src="/images/installed-1.png"></p>
+Synology's Video Station package has been installed more than 66 million times so there are a lot people very annoyed that Synology decided to abandon Video Station when DSM 7.2.2 was released. Many of those people are saying they will never buy another Synology NAS. So I decided to make it possible to install Video Station in DSM 7.2.2 for people who really want Video Station.
+
+This script installs Video Station 3.1.0-3153 and Codec Pack 3.1.0-3005
+
+**<p align="center">Video Station installed in DSM 7.2.2</p>**
+<!-- <p align="center"><img src="/images/installed-1.png"></p> -->
 
 <p align="center"><img src="/images/installed-3.png"></p>
+
+### Download the script
+
+1. Download the latest version _Source code (zip)_ from https://github.com/007revad/Video_Station_for_DSM_722/releases
+2. Save the download zip file to a folder on the Synology.
+3. Unzip the zip file.
+
+### To run the script via SSH
+
+[How to enable SSH and login to DSM via SSH](https://kb.synology.com/en-global/DSM/tutorial/How_to_login_to_DSM_with_root_permission_via_SSH_Telnet)
+
+```YAML
+sudo -s /volume1/scripts/videostation_for_722.sh
+```
+
+**Note:** Replace /volume1/scripts/ with the path to where the script is located.
+
+<p align="center"><img src="/images/script_v1.png"></p>
+
+### After running the script
+
+Enable HEVC decoding:
+1. Open Package Center > Installed.
+2. Click Advanced Media Extensions.
+3. Click on Open.
+4. Click on Install then OK.
+
+<p align="center"><img src="/images/enable_hevc.png"></p>
+
