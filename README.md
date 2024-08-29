@@ -11,3 +11,8 @@
 Script to install Video Station in DSM 7.2.2
 
 Coming very soon :o) 
+
+<p align="center">Video Station installed in DSM 7.2.2</p>
+<p align="center"><img src="/images/installed-1.png"></p>
+
+<p align="center"><img src="/images/installed-3.png"></p>
