@@ -1,3 +1,7 @@
+v1.0.4
+  - Cleaned up output messages (removed the Waiting for pkg to stop/start).
+  - Bug fix for 'rm: cannot remove' messages if temp spk file was already removed.
+
 v1.0.3
   - Bug fix for not deleting temp spk file(s) if download failed or script exited with an error.
 
