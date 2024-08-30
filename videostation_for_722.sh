@@ -478,7 +478,7 @@ if ! check_pkg_installed CodecPack && [[ $ame_version != "30.1.0-3005" ]]; then
     echo "Preventing Advanced Media Extensions from auto updating"
     /usr/syno/bin/synosetkeyvalue /var/packages/CodecPack/INFO version "30.1.0-3005"
     package_start CodecPack "Advanced Media Extensions"
-    rm "/tmp/CodecPack-${arch}-3.1.0-3005.spk"
+    rm -f "/tmp/CodecPack-${arch}-3.1.0-3005.spk"
 else
     echo -e "\n${Cyan}Advanced Media Extensions${Off} already installed"
 fi
@@ -495,8 +495,8 @@ if ! check_pkg_installed VideoStation; then
     #/usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.1-3168"
     /usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.0-3153"
     package_start VideoStation "Video Station"
-    #rm "/tmp/VideoStation-${arch}-3.1.0-3168.spk"
-    rm "/tmp/VideoStation-${arch}-3.1.0-3153.spk"
+    #rm -f "/tmp/VideoStation-${arch}-3.1.0-3168.spk"
+    rm -f "/tmp/VideoStation-${arch}-3.1.0-3153.spk"
 else
     echo -e "\n${Cyan}Video Station${Off} already installed"
 fi
