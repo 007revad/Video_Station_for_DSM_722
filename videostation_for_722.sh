@@ -15,7 +15,7 @@
 # (unless I install older versions of them).
 #------------------------------------------------------------------------------
 # I've seen evidence of:
-#   VideoStation="3.2.0-3173"
+#   VideoStation="3.2.0-3173" (when you try to manually install 3.1.1)
 #   CodecPack="4.0.0-4003"
 # It looks like Synology were developing a new video station for DSM 7.2.2
 # before someone decided to scrap it and cannibalise AME to save a few dollars
@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.0.3"
+scriptver="v1.0.4"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -246,8 +246,8 @@ fi
 
 cleanup(){ 
     arg1=$?
-    for s in /tmp/CodecPack-"${arch}"-*.spk; do rm "$s"; done
-    for s in /tmp/VideoStation-"${arch}"-*.spk; do rm "$s"; done
+    for s in /tmp/CodecPack-"${arch}"-*.spk; do rm -f "$s"; done
+    for s in /tmp/VideoStation-"${arch}"-*.spk; do rm -f "$s"; done
     exit "${arg1}"
 }
 
@@ -294,7 +294,6 @@ progstatus(){
     #echo "return: $1"  # debug
 }
 
-# shellcheck disable=SC2143
 package_status(){ 
     # $1 is package name
     [ "$trace" == "yes" ] && echo "${FUNCNAME[0]} called from ${FUNCNAME[1]}"
@@ -377,14 +376,7 @@ package_stop(){
     progstatus "$?" "$string" "line ${LINENO}"
 
     # Allow package processes to finish stopping
-    #wait_status "$1" stop
-    wait_status "$1" stop &
-    pid=$!
-    #string="Waiting for ${Cyan}${2}${Off} to stop"
-    string="Waiting for ${2} to stop"
-    progbar "$pid" "$string"
-    wait "$pid"
-    progstatus "$?" "$string" "line ${LINENO}"
+    wait_status "$1" stop
 }
 
 package_start(){ 
@@ -400,17 +392,9 @@ package_start(){
     progstatus "$?" "$string" "line ${LINENO}"
 
     # Allow package processes to finish starting
-    #wait_status "$1" start
-    wait_status "$1" start &
-    pid=$!
-    #string="Waiting for ${Cyan}${2}${Off} to start"
-    string="Waiting for ${2} to start"
-    progbar "$pid" "$string"
-    wait "$pid"
-    progstatus "$?" "$string" "line ${LINENO}"
+    wait_status "$1" start
 }
 
-# shellcheck disable=SC2317  # Don't warn about unreachable commands in this function
 package_uninstall(){ 
     # $1 is package name
     # $2 is package display name
@@ -423,7 +407,6 @@ package_uninstall(){
     progstatus "$?" "$string" "line ${LINENO}"
 }
 
-# shellcheck disable=SC2317  # Don't warn about unreachable commands in this function
 package_install(){ 
     # $1 is package filename
     # $2 is package display name
@@ -495,7 +478,7 @@ if ! check_pkg_installed CodecPack && [[ $ame_version != "30.1.0-3005" ]]; then
     echo "Preventing Advanced Media Extensions from auto updating"
     /usr/syno/bin/synosetkeyvalue /var/packages/CodecPack/INFO version "30.1.0-3005"
     package_start CodecPack "Advanced Media Extensions"
-    rm "/tmp/CodecPack-${arch}-3.1.0-3005.spk"
+    rm -f "/tmp/CodecPack-${arch}-3.1.0-3005.spk"
 else
     echo -e "\n${Cyan}Advanced Media Extensions${Off} already installed"
 fi
@@ -512,8 +495,8 @@ if ! check_pkg_installed VideoStation; then
     #/usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.1-3168"
     /usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.0-3153"
     package_start VideoStation "Video Station"
-    #rm "/tmp/VideoStation-${arch}-3.1.0-3168.spk"
-    rm "/tmp/VideoStation-${arch}-3.1.0-3153.spk"
+    #rm -f "/tmp/VideoStation-${arch}-3.1.0-3168.spk"
+    rm -f "/tmp/VideoStation-${arch}-3.1.0-3153.spk"
 else
     echo -e "\n${Cyan}Video Station${Off} already installed"
 fi
