@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.0.5"
+scriptver="v1.1.6"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -475,6 +475,9 @@ fi
 /usr/syno/bin/synosetkeyvalue /etc.defaults/synopackageslimit.conf CodecPack "3.1.0-3005"
 /usr/syno/bin/synosetkeyvalue /etc/synopackageslimit.conf CodecPack "3.1.0-3005"
 
+/usr/syno/bin/synosetkeyvalue /etc.defaults/synopackageslimit.conf MediaServer "2.1.0-3304"
+/usr/syno/bin/synosetkeyvalue /etc/synopackageslimit.conf MediaServer "2.1.0-3304"
+
 # Get installed AME version
 ame_version=$(/usr/syno/bin/synopkg version CodecPack)
 if [[ ${ame_version:0:1} -gt "3" ]]; then
@@ -512,6 +515,20 @@ if ! check_pkg_installed VideoStation; then
     rm -f "/tmp/VideoStation-${cputype}-3.1.0-3153.spk"
 else
     echo -e "\n${Cyan}Video Station${Off} already installed"
+fi
+
+# MediaServer
+if ! check_pkg_installed MediaServer && [[ $ame_version != "20.1.0-3304" ]]; then
+    download_pkg MediaServer "2.1.0-3304" "MediaServer-${cputype}-2.1.0-3304.spk"
+    package_install "MediaServer-${cputype}-2.1.0-3304.spk" "Media Server"
+    package_stop MediaServer "Media Server"
+    # Prevent package updating and "update available" messages
+    echo "Preventing Media Server from auto updating"
+    /usr/syno/bin/synosetkeyvalue /var/packages/MediaServer/INFO version "20.1.0-3304"
+    package_start MediaServer "Media Server"
+    rm -f "/tmp/MediaServer-${cputype}-2.1.0-3304.spk"
+else
+    echo -e "\n${Cyan}Media Server${Off} already installed"
 fi
 
 echo -e "\nFinished :)"
