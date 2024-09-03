@@ -1,5 +1,5 @@
 v1.1.6
-  - Now installs a version of Media Server that supports video conversion.
+  - Now installs a version of Media Server that supports video and audio conversion.
 
 v1.0.5
   - Bug fix for failing to download spk file for some models with certain CPU types.
