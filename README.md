@@ -29,6 +29,10 @@ Now also installs Media Server 2.1.0-3304 which supports video and audio convers
 2. Save the download zip file to a folder on the Synology.
 3. Unzip the zip file.
 
+### To run the script via task scheduler
+
+See [How to run from task scheduler](https://github.com/007revad/Video_Station_for_DSM_722/blob/main/how_to_run_from_scheduler.md)
+
 ### To run the script via SSH
 
 [How to enable SSH and login to DSM via SSH](https://kb.synology.com/en-global/DSM/tutorial/How_to_login_to_DSM_with_root_permission_via_SSH_Telnet)
