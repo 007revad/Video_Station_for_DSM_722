@@ -16,6 +16,8 @@ Synology's Video Station package has been installed more than 66 million times s
 
 This script installs Video Station 3.1.0-3153 and Codec Pack 3.1.0-3005
 
+Now also installs Media Server 2.1.0-3304 which supports video and audio conversion.
+
 **<p align="center">Video Station installed in DSM 7.2.2</p>**
 <!-- <p align="center"><img src="/images/installed-1.png"></p> -->
 
@@ -37,7 +39,7 @@ sudo -s /volume1/scripts/videostation_for_722.sh
 
 **Note:** Replace /volume1/scripts/ with the path to where the script is located.
 
-<p align="center"><img src="/images/script_v1.png"></p>
+<p align="center"><img src="/images/script_v1-1.png"></p>
 
 ### After running the script
 
