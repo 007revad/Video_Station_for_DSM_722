@@ -57,7 +57,7 @@ Enable HEVC decoding:
 
 ### What about DTS, EAC3 and TrueHD Audio?
 
-You can install ffmpeg 6 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
+You can install FFmpeg 6 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
 
 <p align="center"><img src="/images/ffmpeg6.png"></p>
 
