@@ -65,5 +65,5 @@ Then download  the latest release from https://github.com/AlexPresso/VideoStatio
 
 Finally run VideoStation-FFMPEG-Patcher with the `-v 6` option:
 ```YAML
-sudo -s /volume1/scripts/patcher.sh -v 6
+sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 6
 ```
