@@ -59,6 +59,8 @@ Enable HEVC decoding:
 
 You can install ffmpeg 6 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
 
+<p align="center"><img src="/images/ffmpeg6.png"></p>
+
 Then download  the latest release from https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher and unzip it.
 
 Finally run VideoStation-FFMPEG-Patcher with the `-v 6` option:
