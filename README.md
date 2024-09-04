@@ -18,6 +18,8 @@ This script installs Video Station 3.1.0-3153 and Codec Pack 3.1.0-3005
 
 Now also installs Media Server 2.1.0-3304 which supports video and audio conversion.
 
+After running this script and enabling HEVC decoding in Advanced Media Extensions Synology Photos will be able to create thumbnails for HEIC photos again.
+
 **<p align="center">Video Station installed in DSM 7.2.2</p>**
 <!-- <p align="center"><img src="/images/installed-1.png"></p> -->
 
