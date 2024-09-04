@@ -55,3 +55,15 @@ Enable HEVC decoding:
 
 <p align="center"><img src="/images/enable_hevc.png"></p>
 
+### What about DTS, EAC3 and TrueHD Audio?
+
+You can install FFmpeg 6 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
+
+<p align="center"><img src="/images/ffmpeg6.png"></p>
+
+Then download  the latest release from https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher and unzip it.
+
+Finally run VideoStation-FFMPEG-Patcher with the `-v 6` option:
+```YAML
+sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 6
+```
