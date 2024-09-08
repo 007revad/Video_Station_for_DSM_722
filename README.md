@@ -6,6 +6,8 @@
 [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/007revad)
 [![committers.top badge](https://user-badge.committers.top/australia/007revad.svg)](https://user-badge.committers.top/australia/007revad)
 
+The Video Station icon above is [Copyright © 2004-2024 Synology Inc.](https://kb.synology.com/en-br/DSM/help/DSM/Home/about?version=7)
+
 ### Description
 
 Script to install Video Station in DSM 7.2.2
@@ -13,6 +15,10 @@ Script to install Video Station in DSM 7.2.2
 Synology's Video Station package has been installed more than 66 million times so there are a lot people very annoyed that Synology decided to abandon Video Station when DSM 7.2.2 was released. Many of those people are saying they will never buy another Synology NAS. So I decided to make it possible to install Video Station in DSM 7.2.2 for people who really want Video Station.
 
 This script installs Video Station 3.1.0-3153 and Codec Pack 3.1.0-3005
+
+Now also installs Media Server 2.1.0-3304 which supports video and audio conversion.
+
+After running this script and enabling HEVC decoding in Advanced Media Extensions Synology Photos will be able to create thumbnails for HEIC photos again.
 
 **<p align="center">Video Station installed in DSM 7.2.2</p>**
 <!-- <p align="center"><img src="/images/installed-1.png"></p> -->
@@ -25,6 +31,10 @@ This script installs Video Station 3.1.0-3153 and Codec Pack 3.1.0-3005
 2. Save the download zip file to a folder on the Synology.
 3. Unzip the zip file.
 
+### To run the script via task scheduler
+
+See [How to run from task scheduler](https://github.com/007revad/Video_Station_for_DSM_722/blob/main/how_to_run_from_scheduler.md)
+
 ### To run the script via SSH
 
 [How to enable SSH and login to DSM via SSH](https://kb.synology.com/en-global/DSM/tutorial/How_to_login_to_DSM_with_root_permission_via_SSH_Telnet)
@@ -35,7 +45,7 @@ sudo -s /volume1/scripts/videostation_for_722.sh
 
 **Note:** Replace /volume1/scripts/ with the path to where the script is located.
 
-<p align="center"><img src="/images/script_v1.png"></p>
+<p align="center"><img src="/images/script_v1-1.png"></p>
 
 ### After running the script
 
@@ -47,3 +57,15 @@ Enable HEVC decoding:
 
 <p align="center"><img src="/images/enable_hevc.png"></p>
 
+### What about DTS, EAC3 and TrueHD Audio?
+
+You can install FFmpeg 6 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
+
+<p align="center"><img src="/images/ffmpeg6.png"></p>
+
+Then download  the latest release from https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher and unzip it.
+
+Finally run VideoStation-FFMPEG-Patcher with the `-v 6` option:
+```YAML
+sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 6
+```

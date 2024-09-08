@@ -15,7 +15,7 @@
 # (unless I install older versions of them).
 #------------------------------------------------------------------------------
 # I've seen evidence of:
-#   VideoStation="3.2.0-3173"
+#   VideoStation="3.2.0-3173" (when you try to manually install 3.1.1)
 #   CodecPack="4.0.0-4003"
 # It looks like Synology were developing a new video station for DSM 7.2.2
 # before someone decided to scrap it and cannibalise AME to save a few dollars
@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.0.2"
+scriptver="v1.1.6"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -85,13 +85,6 @@ echo "$model DSM $productversion-$buildnumber$smallfix $buildphase"
 
 # Show CPU arch and family
 echo "CPU $family $arch"
-
-# Check script is needed
-if [[ $buildnumber -lt "72803" ]]; then
-    echo -e "\nYour DSM version does not need this script"
-    exit
-fi
-
 
 #------------------------------------------------------------------------------
 # Check latest release with GitHub API
@@ -244,6 +237,35 @@ fi
 
 #------------------------------------------------------------------------------
 
+# Check script is needed
+if [[ $buildnumber -lt "72803" ]]; then
+    echo -e "\nYour DSM version does not need this script"
+    exit
+fi
+
+# Check model is supported
+spks_list=("armada37xx" "armada38x" "armv7" "monaco" "rtd1296" "rtd1619b" "x86_64")
+if [[ ${spks_list[*]} =~ $arch ]]; then
+    cputype="$arch"
+elif [[ ${spks_list[*]} =~ $family ]]; then
+    cputype="$family"
+else
+    echo -e "\nUnsupported or unknown CPU family or architecture"
+    exit
+fi
+echo "Using CPU type: $cputype"
+
+#------------------------------------------------------------------------------
+
+cleanup(){ 
+    arg1=$?
+    for s in /tmp/CodecPack-"${cputype}"-*.spk; do rm -f "$s"; done
+    for s in /tmp/VideoStation-"${cputype}"-*.spk; do rm -f "$s"; done
+    exit "${arg1}"
+}
+
+trap cleanup EXIT
+
 progbar(){ 
     # $1 is pid of process
     # $2 is string to echo
@@ -285,7 +307,6 @@ progstatus(){
     #echo "return: $1"  # debug
 }
 
-# shellcheck disable=SC2143
 package_status(){ 
     # $1 is package name
     [ "$trace" == "yes" ] && echo "${FUNCNAME[0]} called from ${FUNCNAME[1]}"
@@ -368,14 +389,7 @@ package_stop(){
     progstatus "$?" "$string" "line ${LINENO}"
 
     # Allow package processes to finish stopping
-    #wait_status "$1" stop
-    wait_status "$1" stop &
-    pid=$!
-    #string="Waiting for ${Cyan}${2}${Off} to stop"
-    string="Waiting for ${2} to stop"
-    progbar "$pid" "$string"
-    wait "$pid"
-    progstatus "$?" "$string" "line ${LINENO}"
+    wait_status "$1" stop
 }
 
 package_start(){ 
@@ -391,17 +405,9 @@ package_start(){
     progstatus "$?" "$string" "line ${LINENO}"
 
     # Allow package processes to finish starting
-    #wait_status "$1" start
-    wait_status "$1" start &
-    pid=$!
-    #string="Waiting for ${Cyan}${2}${Off} to start"
-    string="Waiting for ${2} to start"
-    progbar "$pid" "$string"
-    wait "$pid"
-    progstatus "$?" "$string" "line ${LINENO}"
+    wait_status "$1" start
 }
 
-# shellcheck disable=SC2317  # Don't warn about unreachable commands in this function
 package_uninstall(){ 
     # $1 is package name
     # $2 is package display name
@@ -414,7 +420,6 @@ package_uninstall(){
     progstatus "$?" "$string" "line ${LINENO}"
 }
 
-# shellcheck disable=SC2317  # Don't warn about unreachable commands in this function
 package_install(){ 
     # $1 is package filename
     # $2 is package display name
@@ -470,6 +475,9 @@ fi
 /usr/syno/bin/synosetkeyvalue /etc.defaults/synopackageslimit.conf CodecPack "3.1.0-3005"
 /usr/syno/bin/synosetkeyvalue /etc/synopackageslimit.conf CodecPack "3.1.0-3005"
 
+/usr/syno/bin/synosetkeyvalue /etc.defaults/synopackageslimit.conf MediaServer "2.1.0-3304"
+/usr/syno/bin/synosetkeyvalue /etc/synopackageslimit.conf MediaServer "2.1.0-3304"
+
 # Get installed AME version
 ame_version=$(/usr/syno/bin/synopkg version CodecPack)
 if [[ ${ame_version:0:1} -gt "3" ]]; then
@@ -479,34 +487,48 @@ fi
 
 # CodecPack (Advanced Media Extensions)
 if ! check_pkg_installed CodecPack && [[ $ame_version != "30.1.0-3005" ]]; then
-    download_pkg CodecPack "3.1.0-3005" "CodecPack-${arch}-3.1.0-3005.spk"
-    package_install "CodecPack-${arch}-3.1.0-3005.spk" "Advanced Media Extensions"
+    download_pkg CodecPack "3.1.0-3005" "CodecPack-${cputype}-3.1.0-3005.spk"
+    package_install "CodecPack-${cputype}-3.1.0-3005.spk" "Advanced Media Extensions"
     package_stop CodecPack "Advanced Media Extensions"
     # Prevent package updating and "update available" messages
     echo "Preventing Advanced Media Extensions from auto updating"
     /usr/syno/bin/synosetkeyvalue /var/packages/CodecPack/INFO version "30.1.0-3005"
     package_start CodecPack "Advanced Media Extensions"
-    #rm "/tmp/CodecPack-${arch}-3.1.0-3005.spk"
+    rm -f "/tmp/CodecPack-${cputype}-3.1.0-3005.spk"
 else
     echo -e "\n${Cyan}Advanced Media Extensions${Off} already installed"
 fi
 
 # VideoStation
 if ! check_pkg_installed VideoStation; then
-    #download_pkg VideoStation "3.1.1-3168" "VideoStation-${arch}-3.1.0-3168.spk"
-    download_pkg VideoStation "3.1.0-3153" "VideoStation-${arch}-3.1.0-3153.spk"
-    #package_install "VideoStation-${arch}-3.1.1-3168.spk" "Video Station"
-    package_install "VideoStation-${arch}-3.1.0-3153.spk" "Video Station"
+    #download_pkg VideoStation "3.1.1-3168" "VideoStation-${cputype}-3.1.0-3168.spk"
+    download_pkg VideoStation "3.1.0-3153" "VideoStation-${cputype}-3.1.0-3153.spk"
+    #package_install "VideoStation-${cputype}-3.1.1-3168.spk" "Video Station"
+    package_install "VideoStation-${cputype}-3.1.0-3153.spk" "Video Station"
     package_stop VideoStation "Video Station"
     # Prevent package updating and "update available" messages
     echo "Preventing Video Station from auto updating"
     #/usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.1-3168"
     /usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.0-3153"
     package_start VideoStation "Video Station"
-    ##rm "/tmp/VideoStation-${arch}-3.1.0-3168.spk"
-    #rm "/tmp/VideoStation-${arch}-3.1.0-3153.spk"
+    #rm -f "/tmp/VideoStation-${cputype}-3.1.0-3168.spk"
+    rm -f "/tmp/VideoStation-${cputype}-3.1.0-3153.spk"
 else
     echo -e "\n${Cyan}Video Station${Off} already installed"
+fi
+
+# MediaServer
+if ! check_pkg_installed MediaServer && [[ $ame_version != "20.1.0-3304" ]]; then
+    download_pkg MediaServer "2.1.0-3304" "MediaServer-${cputype}-2.1.0-3304.spk"
+    package_install "MediaServer-${cputype}-2.1.0-3304.spk" "Media Server"
+    package_stop MediaServer "Media Server"
+    # Prevent package updating and "update available" messages
+    echo "Preventing Media Server from auto updating"
+    /usr/syno/bin/synosetkeyvalue /var/packages/MediaServer/INFO version "20.1.0-3304"
+    package_start MediaServer "Media Server"
+    rm -f "/tmp/MediaServer-${cputype}-2.1.0-3304.spk"
+else
+    echo -e "\n${Cyan}Media Server${Off} already installed"
 fi
 
 echo -e "\nFinished :)"
