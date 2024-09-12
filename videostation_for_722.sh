@@ -11,7 +11,7 @@
 # https://web.archive.org/web/20240825163306/https://archive.synology.com/download/Package
 #------------------------------------------------------------------------------
 # To get Video Station to work I needed to install an older version of AME...
-# which means Drive, Photos and Surveillance Station won't work
+# which means Drive and Surveillance Station may not work
 # (unless I install older versions of them).
 #------------------------------------------------------------------------------
 # I've seen evidence of:
@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.1.6"
+scriptver="v1.2.7"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -191,7 +191,7 @@ if ! printf "%s\n%s\n" "$tag" "$scriptver" |
 
                             # Copy new CHANGES.txt file to script location (if script on a volume)
                             if [[ $scriptpath =~ /volume* ]]; then
-                                # Set permsissions on CHANGES.txt
+                                # Set permissions on CHANGES.txt
                                 if ! chmod 664 "/tmp/$script-$shorttag/CHANGES.txt"; then
                                     permerr=1
                                     echo -e "${Error}ERROR${Off} Failed to set permissions on:"
@@ -529,6 +529,23 @@ if ! check_pkg_installed MediaServer && [[ $ame_version != "20.1.0-3304" ]]; the
     rm -f "/tmp/MediaServer-${cputype}-2.1.0-3304.spk"
 else
     echo -e "\n${Cyan}Media Server${Off} already installed"
+fi
+
+# Start packages if needed (i.e. after DSM update)
+if check_pkg_installed CodecPack; then
+    if ! package_is_running CodecPack; then
+        package_start CodecPack "Advanced Media Extensions"
+    fi
+fi
+if check_pkg_installed VideoStation; then
+    if ! package_is_running VideoStation; then
+        package_start VideoStation "Video Station"
+    fi
+fi
+if check_pkg_installed MediaServer; then
+    if ! package_is_running MediaServer; then
+        package_start MediaServer "Media Server"
+    fi
 fi
 
 echo -e "\nFinished :)"
