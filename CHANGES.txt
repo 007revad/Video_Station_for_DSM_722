@@ -1,3 +1,7 @@
+v1.2.7
+  - Changed so Advanced Media Extensions and Media Server don't need to be uninstalled after DSM update.
+    - Now starts already installed Advanced Media Extensions and Media Server if they aren't running.
+
 v1.1.6
   - Now installs a version of Media Server that supports video and audio conversion.
 

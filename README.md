@@ -14,11 +14,11 @@ Script to install Video Station in DSM 7.2.2
 
 Synology's Video Station package has been installed more than 66 million times so there are a lot people very annoyed that Synology decided to abandon Video Station when DSM 7.2.2 was released. Many of those people are saying they will never buy another Synology NAS. So I decided to make it possible to install Video Station in DSM 7.2.2 for people who really want Video Station.
 
-This script installs Video Station 3.1.0-3153 and Codec Pack 3.1.0-3005
+This script installs Video Station 3.1.0-3153 and Advanced Media Extensions 3.1.0-3005
 
 Now also installs Media Server 2.1.0-3304 which supports video and audio conversion.
 
-After running this script and enabling HEVC decoding in Advanced Media Extensions Synology Photos will be able to create thumbnails for HEIC photos again.
+**HEIC for Synology Photos:** After running this script and enabling HEVC decoding in Advanced Media Extensions Synology Photos will be able to create thumbnails for HEIC photos again (you can then uninstall Video Station and/or Media Server if you don't need them).
 
 **<p align="center">Video Station installed in DSM 7.2.2</p>**
 <!-- <p align="center"><img src="/images/installed-1.png"></p> -->
@@ -69,3 +69,21 @@ Finally run VideoStation-FFMPEG-Patcher with the `-v 6` option:
 ```YAML
 sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 6
 ```
+
+### What about future DSM updates?
+
+***With Video Station installed:***
+
+1. You'll get a message saying Video Station needs to be uninstalled before updating DSM.
+2. Uninstall Video Station (but do ***not** tick the box to delete Video Station's database).
+3. Update DSM.
+4. Package Center will show Advanced Media Extensions and Media Server as "incompatible with your DSM".
+5. Run this script again.
+
+***Without Video Station installed:***
+
+1. Update DSM.
+2. Package Center will show Advanced Media Extensions and Media Server as "incompatible with your DSM".
+3. Run this script again.
+
+</br>
