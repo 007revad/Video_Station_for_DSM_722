@@ -62,18 +62,20 @@ Enable HEVC decoding:
 You can install FFmpeg 6 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
 
 <p align="center"><img src="/images/ffmpeg6.png"></p>
-You have two possibilities, there are two official Wrappers:
 
-1)
-Download  the latest release from https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher and unzip it.
+Then you have a choice of two official Wrappers:
+</br>
 
-Finally run VideoStation-FFMPEG-Patcher with the `-v 6` option:
-```YAML
-sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 6
-```
+1) Download  the latest release from https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher and unzip it.
+
+    - Then run VideoStation-FFMPEG-Patcher with the `-v 6` option:
+    ```YAML
+    sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 6
+    ```
 2) Check it out for more details: https://github.com/darknebular/Wrapper_VideoStation
-bash -c "$(curl "https://raw.githubusercontent.com/darknebular/Wrapper_VideoStation/main/installer.sh")"
-
+    ```YAML
+    bash -c "$(curl "https://raw.githubusercontent.com/darknebular/Wrapper_VideoStation/main/installer.sh")"
+    ```
 
 ### What about future DSM updates?
 
