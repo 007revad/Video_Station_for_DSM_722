@@ -82,7 +82,7 @@ Then you have a choice of two official Wrappers:
 ***With Video Station installed:***
 
 1. You'll get a message saying Video Station needs to be uninstalled before updating DSM.
-2. Uninstall Video Station (but do ***not** tick the box to delete Video Station's database).
+2. Uninstall Video Station (but do **not** tick the box to delete Video Station's database).
 3. Update DSM.
 4. Package Center will show Advanced Media Extensions and Media Server as "incompatible with your DSM".
 5. Run this script again.
