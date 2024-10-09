@@ -444,7 +444,8 @@ download_pkg(){
     # $3 is the package file to download
     local url
     language=$(synogetkeyvalue /etc/synoinfo.conf language)
-    if [[ $language =~ chs|cht ]]; then
+    if [[ $language =~ chs|cht ]] && readlink -q /etc/localtime | grep -iq china;
+    then
         # Use China only download site
         base="https://cndl.synology.cn/download/Package/spk/"
     else
