@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.2.7"
+scriptver="v1.2.8"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -443,7 +443,15 @@ download_pkg(){
     # $2 is the package version to download
     # $3 is the package file to download
     local url
-    base="https://global.synologydownload.com/download/Package/spk/"
+    language=$(synogetkeyvalue /etc/synoinfo.conf language)
+    if [[ $language =~ chs|cht ]]; then
+        # Use China only download site
+        base="https://cndl.synology.cn/download/Package/spk/"
+    else
+        base="https://global.synologydownload.com/download/Package/spk/"
+        # base2 currently unused
+        base2="https://global.download.synology.com/download/Package/spk/"
+    fi
     if [[ ! -f "/tmp/${3:?}" ]]; then
         url="${base}${1:?}/${2:?}/${3:?}"
         echo -e "\nDownloading ${Cyan}${3}${Off}"
@@ -482,7 +490,16 @@ fi
 ame_version=$(/usr/syno/bin/synopkg version CodecPack)
 if [[ ${ame_version:0:1} -gt "3" ]]; then
     # Uninstall AME v4
+    echo ""
     package_uninstall CodecPack "Advanced Media Extensions"
+fi
+
+# Get installed VideoStation version
+vs_version=$(/usr/syno/bin/synopkg version VideoStation)
+if check_pkg_installed VideoStation && [[ ${vs_version:0:2} != "30" ]]; then
+    # Uninstall VideoStation (wrong version)
+    echo ""
+    package_uninstall VideoStation "Video Station"
 fi
 
 # CodecPack (Advanced Media Extensions)
@@ -500,7 +517,7 @@ else
 fi
 
 # VideoStation
-if ! check_pkg_installed VideoStation; then
+if ! check_pkg_installed VideoStation && [[ $vs_version != "30.1.0-3153" ]]; then
     #download_pkg VideoStation "3.1.1-3168" "VideoStation-${cputype}-3.1.0-3168.spk"
     download_pkg VideoStation "3.1.0-3153" "VideoStation-${cputype}-3.1.0-3153.spk"
     #package_install "VideoStation-${cputype}-3.1.1-3168.spk" "Video Station"
