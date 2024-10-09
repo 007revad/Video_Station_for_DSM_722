@@ -1,3 +1,7 @@
+v1.2.8
+- Changed to uninstall Video Station first if wrong version of Video Station still installed after migration. Issue #24
+- Added Synology China package download URL for users in China.
+
 v1.2.7
   - Changed so Advanced Media Extensions and Media Server don't need to be uninstalled after DSM update.
     - Now starts already installed Advanced Media Extensions and Media Server if they aren't running.
