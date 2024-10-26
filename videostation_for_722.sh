@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.2.8"
+scriptver="v1.2.9"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -95,7 +95,7 @@ args=("$@")
 # Get latest release info
 # Curl timeout options:
 # https://unix.stackexchange.com/questions/94604/does-curl-have-a-timeout
-release=$(curl --silent -m 10 --connect-timeout 5 \
+release=$(curl --silent --connect-timeout 30 \
     "https://api.github.com/repos/$repo/releases/latest")
 
 # Release version
