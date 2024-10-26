@@ -1,3 +1,7 @@
+v1.2.9
+- Increased connection timeout from 5 seconds to 30 seconds.
+- Removed download timeout (was 10 seconds).
+
 v1.2.8
 - Changed to uninstall Video Station first if wrong version of Video Station still installed after migration. Issue #24
 - Added Synology China package download URL for users in China.
