@@ -1,3 +1,6 @@
+v1.2.10
+- Bug fix.
+
 v1.2.9
 - Increased connection timeout from 5 seconds to 30 seconds.
 - Removed download timeout (was 30 seconds).

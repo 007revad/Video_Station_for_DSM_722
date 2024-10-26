@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.2.9"
+scriptver="v1.2.10"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -456,7 +456,7 @@ download_pkg(){
     if [[ ! -f "/tmp/${3:?}" ]]; then
         url="${base}${1:?}/${2:?}/${3:?}"
         echo -e "\nDownloading ${Cyan}${3}${Off}"
-        if ! curl -kL -m 30 --connect-timeout 5 "$url" -o "/tmp/$3"; then
+        if ! curl -kL --connect-timeout 30 "$url" -o "/tmp/$3"; then
             ding
             echo -e "${Error}ERROR 2${Off} Failed to download ${3}!"
             exit 2
