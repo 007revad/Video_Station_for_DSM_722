@@ -20,6 +20,12 @@ Now also installs Media Server 2.1.0-3304 which supports video and audio convers
 
 **HEIC for Synology Photos:** After running this script and enabling HEVC decoding in Advanced Media Extensions Synology Photos will be able to create thumbnails for HEIC photos again (you can then uninstall Video Station and/or Media Server if you don't need them).
 
+> **Warning** <br>
+> Recent zero-days security exploits were found in [Synology Photos](https://www.synology.com/en-us/security/advisory/Synology_SA_24_19) and [Synology Drive Server](https://www.synology.com/en-global/security/advisory/Synology_SA_24_21) and quickly patched by Synology. <br>
+> Synology has not made Video Station [End-Of-Life](https://www.synology.com/en-us/products/status?tab=software), as it is still available for DSM 7.2 and 7.2.1 which are both still getting security updates, so Synology should patch Video Station if any security exploits are found.
+
+<br>
+
 **<p align="center">Video Station installed in DSM 7.2.2</p>**
 <!-- <p align="center"><img src="/images/installed-1.png"></p> -->
 
