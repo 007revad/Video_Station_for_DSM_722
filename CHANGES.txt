@@ -1,3 +1,6 @@
+v1.2.11
+- Bug fix for not deleting downloading MediaServer spk from /tmp during cleanup.
+
 v1.2.10
 - Bug fix.
 
