@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.2.10"
+scriptver="v1.2.11"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -261,6 +261,7 @@ cleanup(){
     arg1=$?
     for s in /tmp/CodecPack-"${cputype}"-*.spk; do rm -f "$s"; done
     for s in /tmp/VideoStation-"${cputype}"-*.spk; do rm -f "$s"; done
+    for s in /tmp/MediaServer-"${cputype}"-*.spk; do rm -f "$s"; done
     exit "${arg1}"
 }
 
