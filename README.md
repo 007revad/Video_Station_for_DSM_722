@@ -12,6 +12,8 @@ The Video Station icon above is [Copyright © 2004-2024 Synology Inc.](https://k
 
 Script to install Video Station in DSM 7.2.2
 
+Also installs the DSM 7.2.1 version of Advanced Media Codecs so that Synology Photos can create thumbnails of HEIC photos.
+
 Synology's Video Station package has been installed more than 66 million times so there are a lot people very annoyed that Synology decided to abandon Video Station when DSM 7.2.2 was released. Many of those people are saying they will never buy another Synology NAS. So I decided to make it possible to install Video Station in DSM 7.2.2 for people who really want Video Station.
 
 This script installs Video Station 3.1.0-3153 and Advanced Media Extensions 3.1.0-3005
@@ -19,6 +21,9 @@ This script installs Video Station 3.1.0-3153 and Advanced Media Extensions 3.1.
 Now also installs Media Server 2.1.0-3304 which supports video and audio conversion.
 
 **HEIC for Synology Photos:** After running this script and enabling HEVC decoding in Advanced Media Extensions Synology Photos will be able to create thumbnails for HEIC photos again (you can then uninstall Video Station and/or Media Server if you don't need them).
+
+**UPDATE:** Version 1.3.12 and later has a menu where you can select to only install Advanced Media Codecs, or skip installing Media Server or Video Station. See 
+<a href="#Screenshots">Screenshots</a>
 
 > **Warning** <br>
 > Recent zero-days security exploits were found in [Synology Photos](https://www.synology.com/en-us/security/advisory/Synology_SA_24_19) and [Synology Drive Server](https://www.synology.com/en-global/security/advisory/Synology_SA_24_21) and quickly patched by Synology. <br>
@@ -98,5 +103,20 @@ Then you have a choice of two official Wrappers:
 1. Update DSM.
 2. Package Center will show Advanced Media Extensions and Media Server as "incompatible with your DSM".
 3. Run this script again.
+
+</br>
+
+<div id="Screenshots"></div>
+
+### Screenshots
+
+<p align="center">Install only Advanced Media Codecs</p>
+<p align="center"><img src="/images/install_ame_only.png"></p>
+
+<p align="center">Skip installing Media Server</p>
+<p align="center"><img src="/images/skip_ms.png"></p>
+
+<p align="center">Install All</p>
+<p align="center"><img src="/images/install_all.png"></p>
 
 </br>

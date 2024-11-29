@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.2.11"
+scriptver="v1.3.12"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -473,6 +473,39 @@ download_pkg(){
 }
 
 
+# Only install the packages the user wants
+echo ""
+PS3="Select package(s) to install: "
+options=("Install All" "Only Advanced Media Codecs" "Skip Video Station" "Skip Media Server")
+select choice in "${options[@]}"; do
+    case "$choice" in
+        "Install All")
+            break
+        ;;
+        "Skip Video Station")
+            no_vs="yes"
+            break
+        ;;
+        "Skip Media Server")
+            no_ms="yes"
+            break
+        ;;
+        "Only Advanced Media Codecs")
+            no_vs="yes"
+            no_ms="yes"
+            break
+        ;;
+        "")
+            echo "Invalid Choice!"
+            ;;
+        *)
+            break
+        ;;
+    esac
+done
+echo -e "You selected: $choice"
+
+
 # Backup synopackageslimit.conf if needed
 if [[ ! -f /etc.defaults/synopackageslimit.conf.bak ]]; then
     cp -p /etc.defaults/synopackageslimit.conf /etc.defaults/synopackageslimit.conf.bak
@@ -497,11 +530,13 @@ if [[ ${ame_version:0:1} -gt "3" ]]; then
 fi
 
 # Get installed VideoStation version
-vs_version=$(/usr/syno/bin/synopkg version VideoStation)
-if check_pkg_installed VideoStation && [[ ${vs_version:0:2} != "30" ]]; then
-    # Uninstall VideoStation (wrong version)
-    echo ""
-    package_uninstall VideoStation "Video Station"
+if [[ $no_vs != "yes" ]]; then
+    vs_version=$(/usr/syno/bin/synopkg version VideoStation)
+    if check_pkg_installed VideoStation && [[ ${vs_version:0:2} != "30" ]]; then
+        # Uninstall VideoStation (wrong version)
+        echo ""
+        package_uninstall VideoStation "Video Station"
+    fi
 fi
 
 # CodecPack (Advanced Media Extensions)
@@ -519,35 +554,39 @@ else
 fi
 
 # VideoStation
-if ! check_pkg_installed VideoStation && [[ $vs_version != "30.1.0-3153" ]]; then
-    #download_pkg VideoStation "3.1.1-3168" "VideoStation-${cputype}-3.1.0-3168.spk"
-    download_pkg VideoStation "3.1.0-3153" "VideoStation-${cputype}-3.1.0-3153.spk"
-    #package_install "VideoStation-${cputype}-3.1.1-3168.spk" "Video Station"
-    package_install "VideoStation-${cputype}-3.1.0-3153.spk" "Video Station"
-    package_stop VideoStation "Video Station"
-    # Prevent package updating and "update available" messages
-    echo "Preventing Video Station from auto updating"
-    #/usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.1-3168"
-    /usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.0-3153"
-    package_start VideoStation "Video Station"
-    #rm -f "/tmp/VideoStation-${cputype}-3.1.0-3168.spk"
-    rm -f "/tmp/VideoStation-${cputype}-3.1.0-3153.spk"
-else
-    echo -e "\n${Cyan}Video Station${Off} already installed"
+if [[ $no_vs != "yes" ]]; then
+    if ! check_pkg_installed VideoStation && [[ $vs_version != "30.1.0-3153" ]]; then
+        #download_pkg VideoStation "3.1.1-3168" "VideoStation-${cputype}-3.1.0-3168.spk"
+        download_pkg VideoStation "3.1.0-3153" "VideoStation-${cputype}-3.1.0-3153.spk"
+        #package_install "VideoStation-${cputype}-3.1.1-3168.spk" "Video Station"
+        package_install "VideoStation-${cputype}-3.1.0-3153.spk" "Video Station"
+        package_stop VideoStation "Video Station"
+        # Prevent package updating and "update available" messages
+        echo "Preventing Video Station from auto updating"
+        #/usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.1-3168"
+        /usr/syno/bin/synosetkeyvalue /var/packages/VideoStation/INFO version "30.1.0-3153"
+        package_start VideoStation "Video Station"
+        #rm -f "/tmp/VideoStation-${cputype}-3.1.0-3168.spk"
+        rm -f "/tmp/VideoStation-${cputype}-3.1.0-3153.spk"
+    else
+        echo -e "\n${Cyan}Video Station${Off} already installed"
+    fi
 fi
 
 # MediaServer
-if ! check_pkg_installed MediaServer && [[ $ame_version != "20.1.0-3304" ]]; then
-    download_pkg MediaServer "2.1.0-3304" "MediaServer-${cputype}-2.1.0-3304.spk"
-    package_install "MediaServer-${cputype}-2.1.0-3304.spk" "Media Server"
-    package_stop MediaServer "Media Server"
-    # Prevent package updating and "update available" messages
-    echo "Preventing Media Server from auto updating"
-    /usr/syno/bin/synosetkeyvalue /var/packages/MediaServer/INFO version "20.1.0-3304"
-    package_start MediaServer "Media Server"
-    rm -f "/tmp/MediaServer-${cputype}-2.1.0-3304.spk"
-else
-    echo -e "\n${Cyan}Media Server${Off} already installed"
+if [[ $no_ms != "yes" ]]; then
+    if ! check_pkg_installed MediaServer && [[ $ame_version != "20.1.0-3304" ]]; then
+        download_pkg MediaServer "2.1.0-3304" "MediaServer-${cputype}-2.1.0-3304.spk"
+        package_install "MediaServer-${cputype}-2.1.0-3304.spk" "Media Server"
+        package_stop MediaServer "Media Server"
+        # Prevent package updating and "update available" messages
+        echo "Preventing Media Server from auto updating"
+        /usr/syno/bin/synosetkeyvalue /var/packages/MediaServer/INFO version "20.1.0-3304"
+        package_start MediaServer "Media Server"
+        rm -f "/tmp/MediaServer-${cputype}-2.1.0-3304.spk"
+    else
+        echo -e "\n${Cyan}Media Server${Off} already installed"
+    fi
 fi
 
 # Start packages if needed (i.e. after DSM update)
