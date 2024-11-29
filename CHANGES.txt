@@ -1,6 +1,5 @@
 v1.3.12
 - Added menu with choices to skip installing Media Server, Video Station or both.
-  - If you only want to install Advanced Media Codecs select "Skip Both".
 
 v1.2.11
 - Bug fix for not deleting downloading MediaServer spk from /tmp during cleanup.
