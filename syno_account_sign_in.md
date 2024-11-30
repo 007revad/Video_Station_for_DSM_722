@@ -7,8 +7,8 @@ Enabling the HEVC codec in Advanced Media Extensions requires you are signed in 
 
 ### Troubleshooting:
 
-- If you cannot sign in with Firefox try Chrome.
 - If you cannot sign in with Chrome try a Chrome Incognito window.
+- If you cannot sign in with Firefox try using Chrome.
 - Your browser may be blocking the pop-up window.
 
 **Synology only allows registering a Synology Account if:**
