@@ -1,7 +1,5 @@
 # How to sign into your Synology account
 
-To run a script from Task Scheduler follow these steps:
-
 Advanced Media Extensions requires you are signed in to a Synology Account.
 
 1. **Control Panel** > **Synology Account**
