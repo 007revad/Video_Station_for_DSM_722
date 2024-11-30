@@ -2,7 +2,7 @@ v1.3.12
 - Added menu with choices to skip installing Media Server, Video Station or both.
 
 v1.2.11
-- Bug fix for not deleting downloading MediaServer spk from /tmp during cleanup.
+- Bug fix for not deleting downloaded MediaServer spk from /tmp during cleanup.
 
 v1.2.10
 - Bug fix.
