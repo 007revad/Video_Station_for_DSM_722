@@ -64,7 +64,8 @@ Enable HEVC decoding:
 1. Open Package Center > Installed.
 2. Click Advanced Media Extensions.
 3. Click on Open.
-4. Click on Install then OK.
+4. You may need to [Sign in to your Synology account](https://github.com/007revad/Video_Station_for_DSM_722/blob/main/syno_account_sign_in.md)
+5. Click on Install then OK.
 
 <p align="center"><img src="/images/enable_hevc.png"></p>
 
