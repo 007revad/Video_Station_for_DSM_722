@@ -1,6 +1,6 @@
 # How to sign into your Synology account
 
-Advanced Media Extensions requires you are signed in to a Synology Account.
+Enabling the HEVC codec in Advanced Media Extensions requires you are signed in to a Synology Account.
 
 1. **Control Panel** > **Synology Account**
 2. When you first open Advanced Media Extensions you may need to sign in to your Synology Account.
