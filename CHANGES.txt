@@ -1,3 +1,6 @@
+v1.3.13
+- Menu now times out after 5 seconds so script continues if no choice made (for when script is scheduled).
+
 v1.3.12
 - Added menu with choices to skip installing Media Server, Video Station or both.
 
