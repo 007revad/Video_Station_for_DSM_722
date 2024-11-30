@@ -27,7 +27,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.3.12"
+scriptver="v1.3.13"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -477,6 +477,7 @@ download_pkg(){
 echo ""
 PS3="Select package(s) to install: "
 options=("Install All" "Only Advanced Media Codecs" "Skip Video Station" "Skip Media Server")
+TMOUT=5  # Timeout and install all if no choice made within 5 seconds (for task scheduler)
 select choice in "${options[@]}"; do
     case "$choice" in
         "Install All")
@@ -503,7 +504,12 @@ select choice in "${options[@]}"; do
         ;;
     esac
 done
-echo -e "You selected: $choice"
+unset TMOUT
+if [[ -z "$choice" ]]; then
+    echo "No selection made. Installing all packages."
+else
+    echo -e "You selected: ${Cyan}$choice${Off}"
+fi
 
 
 # Backup synopackageslimit.conf if needed
