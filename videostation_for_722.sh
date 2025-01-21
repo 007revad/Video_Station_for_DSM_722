@@ -2,6 +2,7 @@
 #------------------------------------------------------------------------------
 # https://www.synology.com/en-au/releaseNote/VideoStation
 # https://www.synology.com/en-au/releaseNote/CodecPack
+# https://www.synology.com/en-au/releaseNote/MediaServer
 # https://www.synology.com/en-au/releaseNote/DSM
 #
 # Video Station does not support TrueHD or DTS audio.
@@ -27,7 +28,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.3.13"
+scriptver="v1.3.14"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -74,17 +75,17 @@ buildphase=$(/usr/syno/bin/synogetkeyvalue /etc.defaults/VERSION buildphase)
 buildnumber=$(/usr/syno/bin/synogetkeyvalue /etc.defaults/VERSION buildnumber)
 smallfixnumber=$(/usr/syno/bin/synogetkeyvalue /etc.defaults/VERSION smallfixnumber)
 
-# Get CPU arch and family
+# Get CPU arch and platform_name
 arch="$(uname -m)"
-family=$(/usr/syno/bin/synogetkeyvalue /etc.defaults/synoinfo.conf platform_name)
+platform_name=$(/usr/syno/bin/synogetkeyvalue /etc.defaults/synoinfo.conf platform_name)
 
 # Show DSM full version and model
 if [[ $buildphase == GM ]]; then buildphase=""; fi
 if [[ $smallfixnumber -gt "0" ]]; then smallfix="-$smallfixnumber"; fi
 echo "$model DSM $productversion-$buildnumber$smallfix $buildphase"
 
-# Show CPU arch and family
-echo "CPU $family $arch"
+# Show CPU arch and platform_name
+echo "CPU $platform_name $arch"
 
 #------------------------------------------------------------------------------
 # Check latest release with GitHub API
@@ -244,13 +245,21 @@ if [[ $buildnumber -lt "72803" ]]; then
 fi
 
 # Check model is supported
+## DS1817, DS1517 and DS416
+#if [[ $platform_name == "alpine" || $platform_name == "alpine4k" ]]; then
+#    cputype="armv7"
+#fi
 spks_list=("armada37xx" "armada38x" "armv7" "monaco" "rtd1296" "rtd1619b" "x86_64")
 if [[ ${spks_list[*]} =~ $arch ]]; then
     cputype="$arch"
-elif [[ ${spks_list[*]} =~ $family ]]; then
-    cputype="$family"
+elif [[ ${spks_list[*]} =~ $platform_name ]]; then
+    cputype="$platform_name"
 else
-    echo -e "\nUnsupported or unknown CPU family or architecture"
+    echo -e "\nUnsupported or unknown CPU platform_name or architecture"
+    echo "  - CPU type: $cputype"
+    echo "  - Platform: $platform_name"
+    echo -e "Please create an issue at:"
+    echo -e "https://github.com/007revad/Video_Station_for_DSM_722/issues\n"
     exit
 fi
 echo "Using CPU type: $cputype"
@@ -443,6 +452,10 @@ download_pkg(){
     # $1 is the package folder name
     # $2 is the package version to download
     # $3 is the package file to download
+    
+    # https://cndl.synology.cn/download/Package/spk/VideoStation/3.1.0-3153/VideoStation-x86_64-3.1.0-3153.spk
+    # https://global.synologydownload.com/download/Package/spk/VideoStation/3.1.0-3153/VideoStation-x86_64-3.1.0-3153.spk
+
     local url
     language=$(synogetkeyvalue /etc/synoinfo.conf language)
     if [[ $language =~ chs|cht ]] && readlink -q /etc/localtime | grep -iq china;
@@ -477,7 +490,7 @@ download_pkg(){
 echo ""
 PS3="Select package(s) to install: "
 options=("Install All" "Only Advanced Media Codecs" "Skip Video Station" "Skip Media Server")
-TMOUT=5  # Timeout and install all if no choice made within 5 seconds (for task scheduler)
+TMOUT=20  # Timeout and install all if no choice made within 20 seconds (for task scheduler)
 select choice in "${options[@]}"; do
     case "$choice" in
         "Install All")
@@ -545,6 +558,16 @@ if [[ $no_vs != "yes" ]]; then
     fi
 fi
 
+# Get installed MediaServer version
+if [[ $no_ms != "yes" ]]; then
+    ms_version=$(/usr/syno/bin/synopkg version MediaServer)
+    if check_pkg_installed MediaServer && [[ ${ms_version:0:2} != "30" ]]; then
+        # Uninstall MediaServer (wrong version)
+        echo ""
+        package_uninstall MediaServer "Media Server"
+    fi
+fi
+
 # CodecPack (Advanced Media Extensions)
 if ! check_pkg_installed CodecPack && [[ $ame_version != "30.1.0-3005" ]]; then
     download_pkg CodecPack "3.1.0-3005" "CodecPack-${cputype}-3.1.0-3005.spk"
@@ -556,7 +579,7 @@ if ! check_pkg_installed CodecPack && [[ $ame_version != "30.1.0-3005" ]]; then
     package_start CodecPack "Advanced Media Extensions"
     rm -f "/tmp/CodecPack-${cputype}-3.1.0-3005.spk"
 else
-    echo -e "\n${Cyan}Advanced Media Extensions${Off} already installed"
+    echo -e "\n${Cyan}Advanced Media Extensions${Off} $ame_version already installed"
 fi
 
 # VideoStation
@@ -575,13 +598,13 @@ if [[ $no_vs != "yes" ]]; then
         #rm -f "/tmp/VideoStation-${cputype}-3.1.0-3168.spk"
         rm -f "/tmp/VideoStation-${cputype}-3.1.0-3153.spk"
     else
-        echo -e "\n${Cyan}Video Station${Off} already installed"
+        echo -e "\n${Cyan}Video Station${Off} $vs_version already installed"
     fi
 fi
 
 # MediaServer
 if [[ $no_ms != "yes" ]]; then
-    if ! check_pkg_installed MediaServer && [[ $ame_version != "20.1.0-3304" ]]; then
+    if ! check_pkg_installed MediaServer && [[ $ms_version != "20.1.0-3304" ]]; then
         download_pkg MediaServer "2.1.0-3304" "MediaServer-${cputype}-2.1.0-3304.spk"
         package_install "MediaServer-${cputype}-2.1.0-3304.spk" "Media Server"
         package_stop MediaServer "Media Server"

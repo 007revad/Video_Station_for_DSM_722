@@ -1,3 +1,8 @@
+v1.3.14
+- Changed timeout to 20 seconds. 5 seconds didn't give enough time to read the choices and make a decision.
+- Changed "already installed" messages to include the package version.
+- Added check that already installed Media Server is the correct version, and uninstall it if it's not, then install correct version.
+
 v1.3.13
 - Menu now times out after 5 seconds so script continues if no choice made (for when script is scheduled).
 
