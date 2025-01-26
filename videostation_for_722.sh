@@ -28,7 +28,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.3.14"
+scriptver="v1.3.15"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -245,15 +245,14 @@ if [[ $buildnumber -lt "72803" ]]; then
 fi
 
 # Check model is supported
-## DS1817, DS1517 and DS416
-#if [[ $platform_name == "alpine" || $platform_name == "alpine4k" ]]; then
-#    cputype="armv7"
-#fi
 spks_list=("armada37xx" "armada38x" "armv7" "monaco" "rtd1296" "rtd1619b" "x86_64")
 if [[ ${spks_list[*]} =~ $arch ]]; then
     cputype="$arch"
 elif [[ ${spks_list[*]} =~ $platform_name ]]; then
     cputype="$platform_name"
+elif [[ $platform_name == "alpine" || $platform_name == "alpine4k" ]]; then
+    # DS1817, DS1517 and DS416
+    cputype="armv7"
 else
     echo -e "\nUnsupported or unknown CPU platform_name or architecture"
     echo "  - CPU type: $cputype"
