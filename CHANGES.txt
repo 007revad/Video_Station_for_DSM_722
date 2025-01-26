@@ -1,3 +1,6 @@
+v1.3.15
+- Added support for Alpine and Alpine4K (DS1817, DS1517 and DS416). Issue #49 and #54
+
 v1.3.14
 - Changed timeout to 20 seconds. 5 seconds didn't give enough time to read the choices and make a decision.
 - Changed "already installed" messages to include the package version.
