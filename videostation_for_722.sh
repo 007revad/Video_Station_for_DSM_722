@@ -550,7 +550,8 @@ fi
 # Get installed VideoStation version
 if [[ $no_vs != "yes" ]]; then
     vs_version=$(/usr/syno/bin/synopkg version VideoStation)
-    if check_pkg_installed VideoStation && [[ ${vs_version:0:2} != "30" ]]; then
+    #if check_pkg_installed VideoStation && [[ ${vs_version:0:2} != "30" ]]; then
+    if check_pkg_installed VideoStation && [[ ${vs_version} != "30.1.0-3153" ]]; then
         # Uninstall VideoStation (wrong version)
         echo ""
         package_uninstall VideoStation "Video Station"
@@ -560,7 +561,8 @@ fi
 # Get installed MediaServer version
 if [[ $no_ms != "yes" ]]; then
     ms_version=$(/usr/syno/bin/synopkg version MediaServer)
-    if check_pkg_installed MediaServer && [[ ${ms_version:0:2} != "20" ]]; then
+    #if check_pkg_installed MediaServer && [[ ${ms_version:0:2} != "20" ]]; then
+    if check_pkg_installed MediaServer && [[ ${ms_version} != "20.0.5-3152" ]]; then
         # Uninstall MediaServer (wrong version)
         echo ""
         package_uninstall MediaServer "Media Server"
