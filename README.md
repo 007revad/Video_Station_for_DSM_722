@@ -18,7 +18,7 @@ Synology's Video Station package has been installed more than 66 million times s
 
 This script installs Video Station 3.1.0-3153 and Advanced Media Extensions 3.1.0-3005
 
-Now also installs Media Server 2.1.0-3304 which supports video and audio conversion.
+Now also installs Media Server 2.0.5-3152 which supports video and audio conversion.
 
 **HEIC for Synology Photos:** After running this script and enabling HEVC decoding in Advanced Media Extensions Synology Photos will be able to create thumbnails for HEIC photos again (you can then uninstall Video Station and/or Media Server if you don't need them).
 
