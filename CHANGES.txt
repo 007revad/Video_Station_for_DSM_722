@@ -2,7 +2,7 @@ v1.3.17
 - Changed to install the latest DSM 7.1 Media Server 2.0.5-3152 as it is not affected by Synology-SA-24:28
   - https://www.synology.com/en-uk/security/advisory/Synology_SA_24_28
   - https://www.cve.org/CVERecord?id=CVE-2024-4464
-- Now shows which Media Server is installed.
+- Now shows which Media Server version is installed.
 - Bug fix for always re-installing Media Server even if correct version was already installed.
 - Bug fix for not updating Video Station or Media Server if old version was already installed by this script.
 
