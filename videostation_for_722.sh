@@ -28,7 +28,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.3.16"
+scriptver="v1.3.17"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -550,7 +550,8 @@ fi
 # Get installed VideoStation version
 if [[ $no_vs != "yes" ]]; then
     vs_version=$(/usr/syno/bin/synopkg version VideoStation)
-    if check_pkg_installed VideoStation && [[ ${vs_version:0:2} != "30" ]]; then
+    #if check_pkg_installed VideoStation && [[ ${vs_version:0:2} != "30" ]]; then
+    if check_pkg_installed VideoStation && [[ ${vs_version} != "30.1.0-3153" ]]; then
         # Uninstall VideoStation (wrong version)
         echo ""
         package_uninstall VideoStation "Video Station"
@@ -560,7 +561,8 @@ fi
 # Get installed MediaServer version
 if [[ $no_ms != "yes" ]]; then
     ms_version=$(/usr/syno/bin/synopkg version MediaServer)
-    if check_pkg_installed MediaServer && [[ ${ms_version:0:2} != "20" ]]; then
+    #if check_pkg_installed MediaServer && [[ ${ms_version:0:2} != "20" ]]; then
+    if check_pkg_installed MediaServer && [[ ${ms_version} != "20.0.5-3152" ]]; then
         # Uninstall MediaServer (wrong version)
         echo ""
         package_uninstall MediaServer "Media Server"
@@ -613,7 +615,7 @@ if [[ $no_ms != "yes" ]]; then
         package_start MediaServer "Media Server"
         rm -f "/tmp/MediaServer-${cputype}-2.0.5-3152.spk"
     else
-        echo -e "\n${Cyan}Media Server${Off} already installed"
+        echo -e "\n${Cyan}Media Server${Off} $ms_version already installed"
     fi
 fi
 
