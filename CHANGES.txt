@@ -1,11 +1,10 @@
 v1.3.17
-- Now shows which Media Server is installed.
-
-v1.3.16
 - Changed to install the latest DSM 7.1 Media Server 2.0.5-3152 as it is not affected by Synology-SA-24:28
   - https://www.synology.com/en-uk/security/advisory/Synology_SA_24_28
   - https://www.cve.org/CVERecord?id=CVE-2024-4464
+- Now shows which Media Server is installed.
 - Bug fix for always re-installing Media Server even if correct version was already installed.
+- Bug fix for not updating Video Station or Media Server if old version was already installed by this script.
 
 v1.3.15
 - Added support for Alpine and Alpine4K (DS1817, DS1517 and DS416). Issue #49 and #54
