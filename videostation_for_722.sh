@@ -28,7 +28,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.3.16"
+scriptver="v1.3.17"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -613,7 +613,7 @@ if [[ $no_ms != "yes" ]]; then
         package_start MediaServer "Media Server"
         rm -f "/tmp/MediaServer-${cputype}-2.0.5-3152.spk"
     else
-        echo -e "\n${Cyan}Media Server${Off} already installed"
+        echo -e "\n${Cyan}Media Server${Off} $ms_version already installed"
     fi
 fi
 
