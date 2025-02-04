@@ -28,7 +28,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.3.15"
+scriptver="v1.3.16"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -536,8 +536,8 @@ fi
 /usr/syno/bin/synosetkeyvalue /etc.defaults/synopackageslimit.conf CodecPack "3.1.0-3005"
 /usr/syno/bin/synosetkeyvalue /etc/synopackageslimit.conf CodecPack "3.1.0-3005"
 
-/usr/syno/bin/synosetkeyvalue /etc.defaults/synopackageslimit.conf MediaServer "2.1.0-3304"
-/usr/syno/bin/synosetkeyvalue /etc/synopackageslimit.conf MediaServer "2.1.0-3304"
+/usr/syno/bin/synosetkeyvalue /etc.defaults/synopackageslimit.conf MediaServer "2.0.5-3152"
+/usr/syno/bin/synosetkeyvalue /etc/synopackageslimit.conf MediaServer "2.0.5-3152"
 
 # Get installed AME version
 ame_version=$(/usr/syno/bin/synopkg version CodecPack)
@@ -560,7 +560,7 @@ fi
 # Get installed MediaServer version
 if [[ $no_ms != "yes" ]]; then
     ms_version=$(/usr/syno/bin/synopkg version MediaServer)
-    if check_pkg_installed MediaServer && [[ ${ms_version:0:2} != "30" ]]; then
+    if check_pkg_installed MediaServer && [[ ${ms_version:0:2} != "20" ]]; then
         # Uninstall MediaServer (wrong version)
         echo ""
         package_uninstall MediaServer "Media Server"
@@ -603,15 +603,15 @@ fi
 
 # MediaServer
 if [[ $no_ms != "yes" ]]; then
-    if ! check_pkg_installed MediaServer && [[ $ms_version != "20.1.0-3304" ]]; then
-        download_pkg MediaServer "2.1.0-3304" "MediaServer-${cputype}-2.1.0-3304.spk"
-        package_install "MediaServer-${cputype}-2.1.0-3304.spk" "Media Server"
+    if ! check_pkg_installed MediaServer && [[ $ms_version != "20.0.5-3152" ]]; then
+        download_pkg MediaServer "2.0.5-3152" "MediaServer-${cputype}-2.0.5-3152.spk"
+        package_install "MediaServer-${cputype}-2.0.5-3152.spk" "Media Server"
         package_stop MediaServer "Media Server"
         # Prevent package updating and "update available" messages
         echo "Preventing Media Server from auto updating"
-        /usr/syno/bin/synosetkeyvalue /var/packages/MediaServer/INFO version "20.1.0-3304"
+        /usr/syno/bin/synosetkeyvalue /var/packages/MediaServer/INFO version "20.0.5-3152"
         package_start MediaServer "Media Server"
-        rm -f "/tmp/MediaServer-${cputype}-2.1.0-3304.spk"
+        rm -f "/tmp/MediaServer-${cputype}-2.0.5-3152.spk"
     else
         echo -e "\n${Cyan}Media Server${Off} already installed"
     fi
