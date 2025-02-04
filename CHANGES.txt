@@ -1,4 +1,4 @@
-v3.1.16
+v1.3.16
 - Changed to install the latest DSM 7.1 Media Server 2.0.5-3152 as it is not affected by Synology-SA-24:28
   - https://www.synology.com/en-uk/security/advisory/Synology_SA_24_28
   - https://www.cve.org/CVERecord?id=CVE-2024-4464
