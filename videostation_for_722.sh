@@ -28,7 +28,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.3.17"
+scriptver="v1.3.18"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -389,7 +389,7 @@ package_stop(){
     # $1 is package name
     # $2 is package display name
     [ "$trace" == "yes" ] && echo "${FUNCNAME[0]} called from ${FUNCNAME[1]}"
-    timeout 5.0m /usr/syno/bin/synopkg stop "$1" >/dev/null &
+    timeout 5m /usr/syno/bin/synopkg stop "$1" >/dev/null &
     pid=$!
     #string="Stopping ${Cyan}${2}${Off}"
     string="Stopping ${2}"
@@ -405,7 +405,7 @@ package_start(){
     # $1 is package name
     # $2 is package display name
     [ "$trace" == "yes" ] && echo "${FUNCNAME[0]} called from ${FUNCNAME[1]}"
-    timeout 5.0m /usr/syno/bin/synopkg start "$1" >/dev/null &
+    timeout 5m /usr/syno/bin/synopkg start "$1" >/dev/null &
     pid=$!
     #string="Starting ${Cyan}${2}${Off}"
     string="Starting ${2}"
