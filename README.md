@@ -1,4 +1,4 @@
-# <img src="images/VideoStation_64.png" width="40"> Video Station for DSM 7.2.2
+# <img src="images/VideoStation_64.png" width="40"> Video Station for DSM 7.2.2 and DSM 7.3
 
 <a href="https://github.com/007revad/Video_Station_for_DSM_722/releases"><img src="https://img.shields.io/github/release/007revad/Video_Station_for_DSM_722.svg"></a>
 ![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2F007revad%2FVideo_Station_for_DSM_722&label=Visitors&icon=github&color=%23198754&message=&style=flat&tz=Australia%2FSydney)
