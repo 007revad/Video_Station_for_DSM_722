@@ -28,26 +28,17 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.3.18"
+scriptver="v1.4.19"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
 
-# Shell Colors
-#Black='\e[0;30m'   # ${Black}
-#Red='\e[0;31m'     # ${Red}
-#Green='\e[0;32m'   # ${Green}
-#Yellow='\e[0;33m'   # ${Yellow}
-#Blue='\e[0;34m'    # ${Blue}
-#Purple='\e[0;35m'  # ${Purple}
-Cyan='\e[0;36m'     # ${Cyan}
-#White='\e[0;37m'   # ${White}
-Error='\e[41m'      # ${Error}
-Off='\e[0m'         # ${Off}
-
 ding(){ 
     printf \\a
 }
+
+# Save options used for getopt
+args=("$@")
 
 if [[ $1 == "--trace" ]] || [[ $1 == "-t" ]]; then
     trace="yes"
@@ -86,6 +77,138 @@ echo "$model DSM $productversion-$buildnumber$smallfix $buildphase"
 
 # Show CPU arch and platform_name
 echo "CPU $platform_name $arch"
+
+# Show options used
+if [[ ${#args[@]} -gt "0" ]]; then
+    echo -e "Using options: ${args[*]}\n"
+else
+    echo ""
+fi
+
+
+usage(){ 
+    cat <<EOF
+Usage: $(basename "$0") [options]
+
+Options:
+  -h, --help            Show this help message
+  -v, --version         Show the script version
+      --install=OPTION  Automatically install OPTION (for use when scheduled)
+                        OPTION can be either: 
+                          'all' to install Video Station, Media Server and
+                            Advanced Media Codecs
+                          'novs' to install all except Video Station
+                          'noms' to install all except Media Server
+                          'onlyamc' to only install Advanced Media Codecs
+                        Examples:
+                          videostation_for_722.sh --install=all
+                          videostation_for_722.sh --install=novs
+                          videostation_for_722.sh --install=noms
+                          videostation_for_722.sh --install=onlyamc
+
+EOF
+}
+
+scriptversion(){ 
+    cat <<EOF
+$script $scriptver - by 007revad
+
+See https://github.com/$repo
+EOF
+    exit 0
+}
+
+
+autoupdate=""
+
+# Check for flags with getopt
+if options="$(getopt -o abcdefghijklmnopqrstuvwxyz0123456789 -l \
+    autoupdate:,install:,help,version,log,debug -- "${args[@]}")"; then
+    eval set -- "$options"
+    while true; do
+        case "${1,,}" in
+            -h|--help)          # Show usage options
+                usage
+                exit
+                ;;
+            -v|--version)       # Show script version
+                scriptversion
+                ;;
+            -l|--log)           # Log
+                log=yes
+                ;;
+            -d|--debug)         # Show and log debug info
+                debug=yes
+                ;;
+            --install)             # Specify pkgs to install or skip
+                color=no        # Disable colour text in task scheduler emails
+                if [[ ${2,,} == "all" ]]; then
+                    auto="yes"
+                    choice="Installing All"
+                elif [[ ${2,,} == "novs" ]]; then
+                    auto="yes"
+                    no_vs="yes"
+                    choice="Skipping Video Station"
+                elif [[ ${2,,} == "noms" ]]; then
+                    auto="yes"
+                    no_ms="yes"
+                    choice="Skipping Media Server"
+                elif [[ ${2,,} == "onlyamc" ]]; then
+                    auto="yes"
+                    no_vs="yes"
+                    no_ms="yes"
+                    choice="Only installing Advanced Media Codecs"
+                else
+                    ding
+                    echo -e "Missing argument to auto!\n"
+                    usage
+                    exit 2  # Missing argument
+                fi
+                shift
+                ;;
+            --autoupdate)       # Auto update script
+                autoupdate=yes
+                if [[ $2 =~ ^[0-9]+$ ]]; then
+                    delay="$2"
+                    shift
+                else
+                    delay="0"
+                fi
+                ;;
+            --)
+                shift
+                break
+                ;;
+            *)                  # Show usage options
+                ding
+                echo -e "Invalid option '$1'\n"
+                usage
+                exit 2  # Invalid argument
+                ;;
+        esac
+        shift
+    done
+else
+    echo
+    usage
+    exit
+fi
+
+# Shell Colors
+if [[ $color != "no" ]]; then
+    #Black='\e[0;30m'   # ${Black}
+    #Red='\e[0;31m'      # ${Red}
+    #Green='\e[0;32m'   # ${Green}
+    #Yellow='\e[0;33m'   # ${Yellow}
+    #Blue='\e[0;34m'    # ${Blue}
+    #Purple='\e[0;35m'  # ${Purple}
+    Cyan='\e[0;36m'     # ${Cyan}
+    #White='\e[0;37m'   # ${White}
+    Error='\e[41m'      # ${Error}
+    #Warn='\e[47;31m'   # ${Warn}
+    Off='\e[0m'         # ${Off}
+fi
+
 
 #------------------------------------------------------------------------------
 # Check latest release with GitHub API
@@ -487,40 +610,44 @@ download_pkg(){
 
 # Only install the packages the user wants
 echo ""
-PS3="Select package(s) to install: "
-options=("Install All" "Only Advanced Media Codecs" "Skip Video Station" "Skip Media Server")
-TMOUT=20  # Timeout and install all if no choice made within 20 seconds (for task scheduler)
-select choice in "${options[@]}"; do
-    case "$choice" in
-        "Install All")
-            break
-        ;;
-        "Skip Video Station")
-            no_vs="yes"
-            break
-        ;;
-        "Skip Media Server")
-            no_ms="yes"
-            break
-        ;;
-        "Only Advanced Media Codecs")
-            no_vs="yes"
-            no_ms="yes"
-            break
-        ;;
-        "")
-            echo "Invalid Choice!"
+if [[ $auto != "yes" ]]; then
+    PS3="Select package(s) to install: "
+    options=("Install All" "Only Advanced Media Codecs" "Skip Video Station" "Skip Media Server")
+    TMOUT=20  # Timeout and install all if no choice made within 20 seconds (for task scheduler)
+    select choice in "${options[@]}"; do
+        case "$choice" in
+            "Install All")
+                break
             ;;
-        *)
-            break
-        ;;
-    esac
-done
-unset TMOUT
-if [[ -z "$choice" ]]; then
-    echo "No selection made. Installing all packages."
+            "Skip Video Station")
+                no_vs="yes"
+                break
+            ;;
+            "Skip Media Server")
+                no_ms="yes"
+                break
+            ;;
+            "Only Advanced Media Codecs")
+                no_vs="yes"
+                no_ms="yes"
+                break
+            ;;
+            "")
+                echo "Invalid Choice!"
+                ;;
+            *)
+                break
+            ;;
+        esac
+    done
+    unset TMOUT
+    if [[ -z "$choice" ]]; then
+        echo "No selection made. Installing all packages."
+    else
+        echo -e "You selected: ${Cyan}$choice${Off}"
+    fi
 else
-    echo -e "You selected: ${Cyan}$choice${Off}"
+    echo "$choice"
 fi
 
 
