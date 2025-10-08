@@ -16,6 +16,8 @@ To run a script from Task Scheduler follow these steps:
 9. Click on the task - but **don't** enable it - then click **Run**.
 10. Once the script has run you can delete the task, or keep in case you need it again.
 
+**Note:** If you don't want the script to install all 3 packages (Video Station, Media Server and Advanced Media Codecs) you can schedule the script to run with the `install=` option to specify which package(s) to install. See [Options when running the script](https://github.com/007revad/Video_Station_for_DSM_722?tab=readme-ov-file#options-when-running-the-script) for more information.
+
 **Here's some screenshots showing what needs to be set:**
 
 <p align="center">Step 1</p>
