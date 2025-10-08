@@ -10,7 +10,7 @@ The Video Station icon above is Copyright © 2004-2025 [Synology Inc.](https://k
 
 ### Description
 
-Script to install Video Station in DSM 7.2.2
+Script to install Video Station in DSM 7.2.2 and DSM 7.3
 
 Also installs the DSM 7.2.1 version of Advanced Media Codecs so that Synology Photos can create thumbnails of HEIC photos.
 
