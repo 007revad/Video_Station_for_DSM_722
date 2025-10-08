@@ -1,5 +1,5 @@
 v1.4.19
-- Added `--auto=OPTION` option for use when the script is scheduled. OPTION can be either: 
+- Added `--install=OPTION` option for use when the script is scheduled. OPTION can be either: 
   - 'all' to install Video Station, Media Server and Advanced Media Codecs.
   - 'novs' to install all except Video Station.
   - 'noms' to install all except Media Server.
