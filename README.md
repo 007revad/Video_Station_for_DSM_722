@@ -14,7 +14,7 @@ Script to install Video Station in DSM 7.2.2 and DSM 7.3
 
 Also installs the DSM 7.2.1 version of Advanced Media Codecs so that Synology Photos can create thumbnails of HEIC photos.
 
-Synology's Video Station package has been installed more than 66 million times so there are a lot people very annoyed that Synology decided to abandon Video Station when DSM 7.2.2 was released. Many of those people are saying they will never buy another Synology NAS. So I decided to make it possible to install Video Station in DSM 7.2.2 for people who really want Video Station.
+Synology's Video Station package has been installed more than 66 million times so there are a lot people very annoyed that Synology decided to abandon Video Station when DSM 7.2.2 was released. Many of those people are saying they will never buy another Synology NAS. So I decided to make it possible to install Video Station in DSM 7.2.2 and DSM 7.3 for people who really want Video Station.
 
 This script installs Video Station 3.1.0-3153 and Advanced Media Extensions 3.1.0-3005
 
@@ -31,7 +31,7 @@ Now also installs Media Server 2.0.5-3152 which supports video and audio convers
 
 <br>
 
-**<p align="center">Video Station installed in DSM 7.2.2</p>**
+**<p align="center">Video Station installed in DSM 7.2.2 and DSM 7.3</p>**
 <!-- <p align="center"><img src="/images/installed-1.png"></p> -->
 
 <p align="center"><img src="/images/installed-3.png"></p>
