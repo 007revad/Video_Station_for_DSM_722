@@ -71,18 +71,18 @@ Enable HEVC decoding:
 
 ### What about DTS, EAC3 and TrueHD Audio?
 
-You can install FFmpeg 6 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
+You can install FFmpeg 7 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
 
-<p align="center"><img src="/images/ffmpeg6.png"></p>
+<p align="center"><img src="/images/ffmpeg7.png"></p>
 
 Then you have a choice of two official Wrappers:
 </br>
 
 1) Download  the latest release from https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher and unzip it.
 
-    - Then run VideoStation-FFMPEG-Patcher with the `-v 6` option:
+    - Then run VideoStation-FFMPEG-Patcher with the `-v 7` option:
     ```YAML
-    sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 6
+    sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 7
     ```
 2) Check it out for more details: https://github.com/darknebular/Wrapper_VideoStation
     ```YAML
