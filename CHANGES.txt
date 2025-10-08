@@ -1,3 +1,12 @@
+v1.4.19
+- Added `--auto=OPTION` option for use when the script is scheduled. OPTION can be either: 
+  - 'all' to install Video Station, Media Server and Advanced Media Codecs.
+  - 'novs' to install all except Video Station.
+  - 'noms' to install all except Media Server.
+  - 'onlyamc' to only install Advanced Media Codecs.
+- Added `-h, --help` option to show the options available.
+- Added `-v, --verison` option.
+
 v1.3.18
 - Changed `timeout 5.0m` to `timeout 5m`. Issue #72
 
