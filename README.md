@@ -1,7 +1,7 @@
 # <img src="images/VideoStation_64.png" width="40"> Video Station for DSM 7.2.2
 
 <a href="https://github.com/007revad/Video_Station_for_DSM_722/releases"><img src="https://img.shields.io/github/release/007revad/Video_Station_for_DSM_722.svg"></a>
-<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F007revad%2FVideo_Station_for_DSM_722&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false"/></a>
+![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2F007revad%2FVideo_Station_for_DSM_722&label=Visitors&icon=github&color=%23198754&message=&style=flat&tz=Australia%2FSydney)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/007revad)
 [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/007revad)
 [![committers.top badge](https://user-badge.committers.top/australia/007revad.svg)](https://user-badge.committers.top/australia/007revad)
@@ -10,7 +10,7 @@ The Video Station icon above is Copyright © 2004-2025 [Synology Inc.](https://k
 
 ### Description
 
-Script to install Video Station in DSM 7.2.2
+Script to install Video Station in DSM 7.2.2 and DSM 7.3
 
 Also installs the DSM 7.2.1 version of Advanced Media Codecs so that Synology Photos can create thumbnails of HEIC photos.
 
@@ -71,18 +71,18 @@ Enable HEVC decoding:
 
 ### What about DTS, EAC3 and TrueHD Audio?
 
-You can install FFmpeg 6 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
+You can install FFmpeg 7 from SynoCommunity. See [Easy Install](https://synocommunity.com/#easy-install) to add SynologyCommunity package repository to Package Center.
 
-<p align="center"><img src="/images/ffmpeg6.png"></p>
+<p align="center"><img src="/images/ffmpeg7.png"></p>
 
 Then you have a choice of two official Wrappers:
 </br>
 
 1) Download  the latest release from https://github.com/AlexPresso/VideoStation-FFMPEG-Patcher and unzip it.
 
-    - Then run VideoStation-FFMPEG-Patcher with the `-v 6` option:
+    - Then run VideoStation-FFMPEG-Patcher with the `-v 7` option:
     ```YAML
-    sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 6
+    sudo -s /volume1/scripts/VideoStation-FFMPEG-Patcher/patcher.sh -v 7
     ```
 2) Check it out for more details: https://github.com/darknebular/Wrapper_VideoStation
     ```YAML
