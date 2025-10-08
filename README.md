@@ -42,6 +42,27 @@ Now also installs Media Server 2.0.5-3152 which supports video and audio convers
 2. Save the download zip file to a folder on the Synology.
 3. Unzip the zip file.
 
+### Options when running the script
+
+There are optional flags you can use when running the script:
+```
+Options:
+  -h, --help            Show this help message
+  -v, --version         Show the script version
+      --install=OPTION  Automatically install OPTION (for use when scheduled)
+                        OPTION can be either: 
+                          'all' to install Video Station, Media Server and
+                            Advanced Media Codecs
+                          'novs' to install all except Video Station
+                          'noms' to install all except Media Server
+                          'onlyamc' to only install Advanced Media Codecs
+                        Examples:
+                          videostation_for_722.sh --install=all
+                          videostation_for_722.sh --install=novs
+                          videostation_for_722.sh --install=noms
+                          videostation_for_722.sh --install=onlyamc
+```
+
 ### To run the script via task scheduler
 
 See [How to run from task scheduler](https://github.com/007revad/Video_Station_for_DSM_722/blob/main/how_to_run_from_scheduler.md)
