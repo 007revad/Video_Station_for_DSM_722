@@ -31,7 +31,7 @@ Now also installs Media Server 2.0.5-3152 which supports video and audio convers
 
 <br>
 
-**<p align="center">Video Station installed in DSM , 7.3, 7.3.1 and 7.3.2</p>**
+**<p align="center">Video Station installed in DSM 7.2.2</p>**
 <!-- <p align="center"><img src="/images/installed-1.png"></p> -->
 
 <p align="center"><img src="/images/installed-3.png"></p>
