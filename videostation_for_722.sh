@@ -28,7 +28,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.4.19"
+scriptver="v1.4.20"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -749,17 +749,32 @@ fi
 # Start packages if needed (i.e. after DSM update)
 if check_pkg_installed CodecPack; then
     if ! package_is_running CodecPack; then
-        package_start CodecPack "Advanced Media Extensions"
+        # Check if package is already starting
+        synopkg status CodecPack >/dev/null
+        code=$?
+        if [[ $code != "55" ]]; then
+            package_start CodecPack "Advanced Media Extensions"
+        fi
     fi
 fi
 if check_pkg_installed VideoStation; then
     if ! package_is_running VideoStation; then
-        package_start VideoStation "Video Station"
+        # Check if package is already starting
+        synopkg status VideoStation >/dev/null
+        code=$?
+        if [[ $code != "55" ]]; then
+            package_start VideoStation "Video Station"
+        fi
     fi
 fi
 if check_pkg_installed MediaServer; then
     if ! package_is_running MediaServer; then
-        package_start MediaServer "Media Server"
+        # Check if package is already starting
+        synopkg status MediaServer >/dev/null
+        code=$?
+        if [[ $code != "55" ]]; then
+            package_start MediaServer "Media Server"
+        fi
     fi
 fi
 
