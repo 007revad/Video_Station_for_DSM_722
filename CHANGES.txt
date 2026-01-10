@@ -1,3 +1,6 @@
+v1.4.20
+- Bug fix for trying to start package that DSM was already starting. Issue #94
+
 v1.4.19
 - Added `--install=OPTION` option for use when the script is scheduled. OPTION can be either: 
   - 'all' to install Video Station, Media Server and Advanced Media Codecs.
