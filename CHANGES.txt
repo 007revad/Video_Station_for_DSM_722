@@ -1,3 +1,6 @@
+v1.4.21
+- Changed to make downloading packages more reliable. Issue #93
+
 v1.4.20
 - Bug fix for trying to start package that DSM was already starting. Issue #94
 
