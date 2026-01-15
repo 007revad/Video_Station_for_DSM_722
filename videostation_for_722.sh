@@ -28,7 +28,7 @@
 #   or add OpenSubtitle changes from 3.1.1-3168 to 3.1.0-3153
 #------------------------------------------------------------------------------
 
-scriptver="v1.4.20"
+scriptver="v1.4.21"
 script=Video_Station_for_DSM_722
 repo="007revad/Video_Station_for_DSM_722"
 scriptname=videostation_for_722
@@ -444,11 +444,14 @@ package_status(){
     [ "$trace" == "yes" ] && echo "${FUNCNAME[0]} called from ${FUNCNAME[1]}"
     /usr/syno/bin/synopkg status "${1}" >/dev/null
     code="$?"
-    # DSM 7.2       0 = started, 17 = stopped, 255 = not_installed, 150 = broken
-    # DSM 6 to 7.1  0 = started,  3 = stopped,   4 = not_installed, 150 = broken
+    # DSM 7.2       0 = started, 55 = starting, 17 = stopped, 255 = not_installed, 150 = broken
+    # DSM 6 to 7.1  0 = started,  4 = starting,  3 = stopped,   4 = not_installed, 150 = broken
     if [[ $code == "0" ]]; then
         #echo "$1 is started"  # debug
         return 0
+    elif [[ $code == "55" ]]; then
+        #echo "$1 is starting"  # debug
+        return 55
     elif [[ $code == "17" ]] || [[ $code == "3" ]]; then
         #echo "$1 is stopped"  # debug
         return 1
@@ -586,17 +589,22 @@ download_pkg(){
         base="https://cndl.synology.cn/download/Package/spk/"
     else
         base="https://global.synologydownload.com/download/Package/spk/"
-        # base2 currently unused
-        base2="https://global.download.synology.com/download/Package/spk/"
+        # base2 in case base fails
+        base2="https://cndl.synology.cn/download/Package/spk/"
     fi
     if [[ ! -f "/tmp/${3:?}" ]]; then
         url="${base}${1:?}/${2:?}/${3:?}"
         echo -e "\nDownloading ${Cyan}${3}${Off}"
-        if ! curl -kL --connect-timeout 30 "$url" -o "/tmp/$3"; then
-            ding
-            echo -e "${Error}ERROR 2${Off} Failed to download ${3}!"
-            exit 2
+        if ! curl -kL --connect-timeout 30 --retry 5 --retry-all-errors "$url" -o "/tmp/$3"; then
+            url="${base2}${1:?}/${2:?}/${3:?}"
+            echo -e "\nDownloading ${Cyan}${3}${Off}"
+            if ! curl -kL --connect-timeout 30 --retry 5 --retry-all-errors "$url" -o "/tmp/$3"; then
+                ding
+                echo -e "${Error}ERROR 2${Off} Failed to download ${3}!"
+                exit 2
+            fi
         fi
+
     fi
     if [[ ! -f "/tmp/${3:?}" ]]; then
         ding
