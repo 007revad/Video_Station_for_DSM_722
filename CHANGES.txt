@@ -1,3 +1,6 @@
+v1.4.22
+- Changed to try 3 different Synology download domains to download the spk file(s).
+
 v1.4.21
 - Changed to make downloading packages more reliable. Issue #93
 
