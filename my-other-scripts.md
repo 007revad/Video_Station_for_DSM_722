@@ -18,6 +18,9 @@
 
 ### Asustor
 
+- **<a href="https://github.com/007revad/Asustor_Ookla_Speedtest">Asustor Ookla Speedtest</a>**
+  - Asustor package to install Ookla Speedtest and run it in a GUI.
+
 - **<a href="https://github.com/007revad/Asustor_SMART_info">Asustor SMART info</a>**
   - Show Asustor smart health and attributes. Can also email you when important values change.
 
