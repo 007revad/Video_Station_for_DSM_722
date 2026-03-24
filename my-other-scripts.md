@@ -124,7 +124,7 @@
 - **<a href="https://github.com/007revad/Synology_created_date">Synology created date</a>**
   - Script to show you the created year and month of your Synology NAS or expansion unit.
   
-  - **<a href="https://github.com/007revad/Restore_RS3621_Fan_Speed">Restore RS3621 Fan Speed</a>**
+- **<a href="https://github.com/007revad/Restore_RS3621_Fan_Speed">Restore RS3621 Fan Speed</a>**
   - Script to restore RS3621xs+ and RS3621RPxs Quiet mode and Cool mode fan speeds back to how it was before DSM 7.3.2.
 
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Back to Contents](#contents)
